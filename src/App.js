@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const AlloyForm = () => {
   // Define state variables for form fields
@@ -17,6 +18,41 @@ const AlloyForm = () => {
   // Define a function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    try {
+      // Define the data to send to your Flask backend
+      const formData = {
+        firstName,
+        lastName,
+        addressLine1,
+        addressLine2,
+        city,
+        state,
+        zipCode,
+        country,
+        ssn,
+        email,
+        dob,
+      };
+
+      // Send a POST request to your Flask backend
+      const response = axios.post(
+        'http://localhost:5000/submit-applicant', // Use the correct URL here
+        formData
+      );
+
+      // Handle the response from your backend as needed
+      if (response.status === 200) {
+        console.log('Applicant data submitted successfully');
+        // Optionally, reset form fields or show a success message
+      } else {
+        console.error('Failed to submit applicant data to Flask backend');
+        // Handle the error, show an error message, etc.
+      }
+    } catch (error) {
+      console.error('An error occurred:', error);
+      // Handle any unexpected errors here
+    }
 
     // Validation logic for each field
     // You can add more specific validation as needed
