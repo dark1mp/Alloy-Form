@@ -39,10 +39,10 @@ const AlloyForm = () => {
   };
 
   return (
-    <div>
+    <div className="alloy-form">
       <h2>Alloy Form</h2>
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="form-group">
           <label htmlFor="firstName">First Name:</label>
           <input
             type="text"
@@ -52,7 +52,7 @@ const AlloyForm = () => {
             required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="lastName">Last Name:</label>
           <input
             type="text"
@@ -62,7 +62,7 @@ const AlloyForm = () => {
             required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="addressLine1">Address Line 1:</label>
           <input
             type="text"
@@ -71,7 +71,7 @@ const AlloyForm = () => {
             onChange={(e) => setAddressLine1(e.target.value)}
           />
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="addressLine2">Address Line 2:</label>
           <input
             type="text"
@@ -80,7 +80,7 @@ const AlloyForm = () => {
             onChange={(e) => setAddressLine2(e.target.value)}
           />
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="city">City:</label>
           <input
             type="text"
@@ -89,7 +89,7 @@ const AlloyForm = () => {
             onChange={(e) => setCity(e.target.value)}
           />
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="state">State (2-letter code):</label>
           <input
             type="text"
@@ -98,7 +98,7 @@ const AlloyForm = () => {
             onChange={(e) => setState(e.target.value)}
           />
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="zipCode">Zip/Postal Code:</label>
           <input
             type="text"
@@ -107,7 +107,7 @@ const AlloyForm = () => {
             onChange={(e) => setZipCode(e.target.value)}
           />
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="country">Country (US):</label>
           <input
             type="text"
@@ -116,7 +116,7 @@ const AlloyForm = () => {
             onChange={(e) => setCountry(e.target.value)}
           />
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="ssn">SSN (9 digits, no dashes):</label>
           <input
             type="text"
@@ -125,7 +125,7 @@ const AlloyForm = () => {
             onChange={(e) => setSsn(e.target.value)}
           />
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="email">Email Address:</label>
           <input
             type="email"
@@ -135,7 +135,7 @@ const AlloyForm = () => {
             required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="dob">Date of Birth (YYYY-MM-DD):</label>
           <input
             type="text"
@@ -144,7 +144,7 @@ const AlloyForm = () => {
             onChange={(e) => setDob(e.target.value)}
           />
         </div>
-        <div>
+        <div className="form-group">
           <button type="submit">Submit</button>
         </div>
       </form>
