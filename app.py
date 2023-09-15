@@ -41,7 +41,29 @@ def validate_applicant_data(data):
     if not data.get("lastName"):
         errors.append("Last Name is required")
 
-    # Add more validation checks for other fields as needed
+    if not data.get("email"):
+        errors.append("Email is required")
+
+    if not data.get("addressLine1"):
+        errors.append("Address Line 1 is required")
+
+    if not data.get("city"):
+        errors.append("City is required")
+
+    if not data.get("state"):
+        errors.append("State is required")
+
+    if not data.get("zipCode"):
+        errors.append("Zip/Postal Code is required")
+
+    if not data.get("country"):
+        errors.append("Country is required")
+
+    if not data.get("ssn"):
+        errors.append("SSN is required")
+
+    if not data.get("dob"):
+        errors.append("Date of Birth is required")
 
     return errors
 
