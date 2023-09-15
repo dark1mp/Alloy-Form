@@ -72,8 +72,21 @@ def submit_applicant():
         response = requests.post(
             'https://sandbox.alloy.co/v1/evaluations/', json=applicant_data, headers=headers)
 
-        # Forward the Alloy API response to the frontend
-        return jsonify(response.json()), response.status_code
+        # Parse the JSON response from Alloy API
+        response_data = response.json()
+        print(f"API Response: {response_data}")
+
+        # Check the response for the 'outcome' field and display appropriate messages
+        outcome = response_data.get('summary', {}).get('outcome', '')
+
+        if outcome == 'Approved':
+            return jsonify({"message": "Success!"}), 200
+        elif outcome == 'Manual Review':
+            return jsonify({"message": "Thanks for submitting your application, we'll be in touch shortly"}), 200
+        elif outcome == 'Deny':
+            return jsonify({"message": "Sorry, your application was not successful"}), 200
+        else:
+            return jsonify({"message": "Unknown Response Outcome"}), 200
 
     except Exception as e:
         print(f"Exception: {str(e)}")
