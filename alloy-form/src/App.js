@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const AlloyForm = () => {
-  // Define state variables for form fields
+  // state variables for form fields
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [addressLine1, setAddressLine1] = useState('');
@@ -15,12 +15,12 @@ const AlloyForm = () => {
   const [email, setEmail] = useState('');
   const [dob, setDob] = useState('');
 
-  // Define a function to handle form submission
+  // function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
 
     try {
-      // Define the data to send to your Flask backend
+      // data to send to your Flask backend
       const formData = {
         firstName,
         lastName,
@@ -41,13 +41,11 @@ const AlloyForm = () => {
         formData
       );
 
-      // Handle the response from your backend as needed
+      // Handle the response from Flask
       if (response.status === 200) {
         console.log('Applicant data submitted successfully');
-        // Optionally, reset form fields or show a success message
       } else {
         console.error('Failed to submit applicant data to Flask backend');
-        // Handle the error, show an error message, etc.
       }
     } catch (error) {
       console.error('An error occurred:', error);
@@ -55,14 +53,14 @@ const AlloyForm = () => {
     }
 
     // Validation logic for each field
-    // You can add more specific validation as needed
 
-    // Example validation for State (2-letter code) and SSN (9 digits)
+    // State (2-letter code) and
     if (!/^[A-Z]{2}$/.test(state)) {
       alert('Please enter a valid 2-letter state code.');
       return;
     }
 
+    // SSN (9 digits)
     if (!/^\d{9}$/.test(ssn)) {
       alert('Please enter a valid 9-digit SSN (no dashes).');
       return;
