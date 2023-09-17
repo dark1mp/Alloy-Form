@@ -10,36 +10,43 @@ const AlloyForm = () => {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [zipCode, setZipCode] = useState('');
-  const [country, setCountry] = useState('');
   const [ssn, setSsn] = useState('');
   const [email, setEmail] = useState('');
   const [dob, setDob] = useState('');
 
   // function to handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       // data to send to your Flask backend
       const formData = {
-        firstName,
-        lastName,
-        addressLine1,
-        addressLine2,
-        city,
-        state,
-        zipCode,
-        country,
-        ssn,
-        email,
-        dob,
+        name_first: firstName,
+        name_last: lastName,
+        address_line_1: addressLine1,
+        address_line_2: addressLine2,
+        address_city: city,
+        address_state: state,
+        address_postal_code: zipCode,
+        document_ssn: ssn,
+        email_address: email,
+        birth_date: dob,
       };
 
       // Send a POST request to your Flask backend
-      const response = axios.post(
-        'http://localhost:5000/submit-applicant', // Use the correct URL here
-        formData
+      console.log('Request Payload:', formData);
+      const response = await axios.post(
+        'http://localhost:5000/submit-applicant',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
       );
+
+      // Log the API response
+      console.log('API Response:', response.data);
 
       // Handle the response from Flask
       if (response.status === 200) {
@@ -140,10 +147,6 @@ const AlloyForm = () => {
             value={zipCode}
             onChange={(e) => setZipCode(e.target.value)}
           />
-        </div>
-        <div className="form-group">
-          <label htmlFor="country">Country:</label>
-          <div id="country-box">US</div>
         </div>
         <div className="form-group">
           <label htmlFor="ssn">SSN (9 digits, no dashes):</label>
