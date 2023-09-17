@@ -2,10 +2,11 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import requests
 import base64
+from decouple import config  # Import the config function from python-decouple
 
 app = Flask(__name__)
 CORS(app, resources={
-     r"/submit-applicant": {"origins": "http://localhost:3000"}})
+    r"/submit-applicant": {"origins": "http://localhost:3000"}})
 
 
 def validate_applicant_data(data):
@@ -19,10 +20,10 @@ def validate_applicant_data(data):
         errors.append("Last Name is required")
 
     if not data.get("address_line_1"):
-        errors.append("Email is required")
+        errors.append("Address Line 1 is required")
 
     if not data.get("address_line_2"):
-        errors.append("Address Line 1 is required")
+        errors.append("Address Line 2 is required")
 
     if not data.get("address_city"):
         errors.append("City is required")
@@ -51,8 +52,12 @@ def submit_applicant():
         # Get the JSON data sent from the React frontend
         applicant_data = request.get_json()
 
-        # Combine your workflow token and secret with a colon
-        credentials = 'IQCMVOwEMVP2wUxeucySvP6F45DnLa24:815YifqYjXbqHlkBquVITxutjaB6mghF'
+        # Retrieve the API key and secret from environment variables
+        api_key = config('ALLOY_API_KEY')
+        api_secret = config('ALLOY_API_SECRET')
+
+        # Combine your API key and secret with a colon
+        credentials = f'{api_key}:{api_secret}'
 
         # Base64 encode the combined string
         base64_credentials = base64.b64encode(credentials.encode()).decode()
@@ -87,7 +92,7 @@ def submit_applicant():
         elif outcome == 'Denied':
             return jsonify({"message": "Sorry, your application was not successful"}), 200
         else:
-            return jsonify({"message": "Unknown Response Outcome"}), 200
+            return jsonify({"message": "Unknown Response Outcome"}), 400
 
     except Exception as e:
         print(f"Exception: {str(e)}")
