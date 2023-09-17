@@ -33,7 +33,7 @@ const AlloyForm = () => {
         birth_date: dob,
       };
 
-      // Send a POST request to your Flask backend
+      // Send a POST request to Flask backend
       console.log('Request Payload:', formData);
       const response = await axios.post(
         'http://localhost:5000/submit-applicant',
@@ -51,7 +51,6 @@ const AlloyForm = () => {
       }
     } catch (error) {
       console.error('An error occurred:', error);
-      // Handle any unexpected errors here
     }
 
     // Validation logic for each field
@@ -67,11 +66,6 @@ const AlloyForm = () => {
       alert('Please enter a valid 9-digit SSN (no dashes).');
       return;
     }
-
-    // Validation for other fields can be added similarly
-
-    // If all validations pass, you can proceed with form submission
-    // Implement form submission logic here
   };
 
   return (
