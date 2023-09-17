@@ -37,12 +37,7 @@ const AlloyForm = () => {
       console.log('Request Payload:', formData);
       const response = await axios.post(
         'http://localhost:5000/submit-applicant',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
+        formData
       );
 
       // Log the API response

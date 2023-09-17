@@ -4,41 +4,42 @@ import requests
 import base64
 
 app = Flask(__name__)
-CORS(app, resources={r"/submit-applicant": {"origins": "*"}})
+CORS(app, resources={
+     r"/submit-applicant": {"origins": "http://localhost:3000"}})
 
 
 def validate_applicant_data(data):
     # data validation logic
     errors = []
 
-    if not data.get("firstName"):
+    if not data.get("name_first"):
         errors.append("First Name is required")
 
-    if not data.get("lastName"):
+    if not data.get("name_last"):
         errors.append("Last Name is required")
 
-    if not data.get("email"):
+    if not data.get("address_line_1"):
         errors.append("Email is required")
 
-    if not data.get("addressLine1"):
+    if not data.get("address_line_2"):
         errors.append("Address Line 1 is required")
 
-    if not data.get("city"):
+    if not data.get("address_city"):
         errors.append("City is required")
 
-    if not data.get("state"):
+    if not data.get("address_state"):
         errors.append("State is required")
 
-    if not data.get("zipCode"):
+    if not data.get("address_postal_code"):
         errors.append("Zip/Postal Code is required")
 
-    if not data.get("country"):
-        errors.append("Country is required")
-
-    if not data.get("ssn"):
+    if not data.get("document_ssn"):
         errors.append("SSN is required")
 
-    if not data.get("dob"):
+    if not data.get("email_address"):
+        errors.append("Email Address is required")
+
+    if not data.get("birth_date"):
         errors.append("Date of Birth is required")
 
     return errors
@@ -83,7 +84,7 @@ def submit_applicant():
             return jsonify({"message": "Success!"}), 200
         elif outcome == 'Manual Review':
             return jsonify({"message": "Thanks for submitting your application, we'll be in touch shortly"}), 200
-        elif outcome == 'Deny':
+        elif outcome == 'Denied':
             return jsonify({"message": "Sorry, your application was not successful"}), 200
         else:
             return jsonify({"message": "Unknown Response Outcome"}), 200
