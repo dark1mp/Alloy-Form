@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import requests
 import base64
-from decouple import config  # Import the config function from python-decouple
+from decouple import config
 
 app = Flask(__name__)
 CORS(app, resources={
@@ -56,7 +56,7 @@ def submit_applicant():
         api_key = config('ALLOY_API_KEY')
         api_secret = config('ALLOY_API_SECRET')
 
-        # Combine your API key and secret with a colon
+        # Combine API key and secret with a colon
         credentials = f'{api_key}:{api_secret}'
 
         # Base64 encode the combined string
@@ -67,7 +67,7 @@ def submit_applicant():
             'Authorization': f'Basic {base64_credentials}'
         }
 
-        # data validation
+        # Data validation
         validation_errors = validate_applicant_data(applicant_data)
         print(f"Validation Errors: {validation_errors}")
 
