@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const AlloyForm = () => {
-  // state variables for form fields
+  // State variables for form fields
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [addressLine1, setAddressLine1] = useState('');
@@ -14,12 +14,12 @@ const AlloyForm = () => {
   const [email, setEmail] = useState('');
   const [dob, setDob] = useState('');
 
-  // function to handle form submission
+  // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      // data to send to your Flask backend
+      // Data to send to your Flask backend
       const formData = {
         name_first: firstName,
         name_last: lastName,
@@ -31,6 +31,20 @@ const AlloyForm = () => {
         document_ssn: ssn,
         email_address: email,
         birth_date: dob,
+      };
+
+      // Reset form state
+      const resetForm = () => {
+        setFirstName('');
+        setLastName('');
+        setAddressLine1('');
+        setAddressLine2('');
+        setCity('');
+        setState('');
+        setZipCode('');
+        setSsn('');
+        setEmail('');
+        setDob('');
       };
 
       // Send a POST request to Flask backend
@@ -46,6 +60,7 @@ const AlloyForm = () => {
       // Handle the response from Flask
       if (response.status === 200) {
         console.log('Applicant data submitted successfully');
+        resetForm();
       } else {
         console.error('Failed to submit applicant data to Flask backend');
       }
@@ -64,6 +79,12 @@ const AlloyForm = () => {
     // SSN (9 digits)
     if (!/^\d{9}$/.test(ssn)) {
       alert('Please enter a valid 9-digit SSN (no dashes).');
+      return;
+    }
+
+    // Date of Birth (YYYY-MM-DD)
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(dob)) {
+      alert('Please enter a valid date of birth in the YYYY-MM-DD format.');
       return;
     }
   };
@@ -138,12 +159,17 @@ const AlloyForm = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="ssn">SSN (9 digits, no dashes):</label>
+          <label htmlFor="ssn">SSN (9 digits):</label>
           <input
             type="text"
             id="ssn"
             value={ssn}
-            onChange={(e) => setSsn(e.target.value)}
+            onChange={(e) => setSsn(e.target.value.replace(/-/g, ''))}
+            onKeyDown={(e) => {
+              if (e.key === '-') {
+                e.preventDefault();
+              }
+            }}
           />
         </div>
         <div className="form-group">
