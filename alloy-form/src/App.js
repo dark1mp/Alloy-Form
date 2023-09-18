@@ -71,7 +71,7 @@ const AlloyForm = () => {
     // Validation logic for each field
 
     // State (2-letter code)
-    if (!/^[A-Z]{2}$/.test(state)) {
+    if (!/^[A-Z]{2}$/.test(state.trim())) {
       alert('Please enter a valid 2-letter state code.');
       return;
     }
@@ -157,6 +157,10 @@ const AlloyForm = () => {
             value={zipCode}
             onChange={(e) => setZipCode(e.target.value)}
           />
+        </div>
+        <div className="form-group">
+          <label htmlFor="country">Country:</label>
+          <div id="country-box">US</div>
         </div>
         <div className="form-group">
           <label htmlFor="ssn">SSN (9 digits):</label>
