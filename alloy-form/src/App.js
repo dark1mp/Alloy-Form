@@ -169,7 +169,7 @@ const AlloyForm = () => {
         <div className="form-group">
           <label htmlFor="ssn">SSN (9 digits):</label>
           <input
-            type="text"
+            type="password"
             id="ssn"
             value={ssn}
             onChange={(e) => setSsn(e.target.value.replace(/-/g, ''))}
