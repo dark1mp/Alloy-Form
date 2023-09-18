@@ -47,6 +47,26 @@ const AlloyForm = () => {
         setDob('');
       };
 
+      // Validation logic for each field
+
+      // State (2-letter code)
+      if (!/^[A-Z]{2}$/.test(state.trim())) {
+        alert('Please enter a valid 2-letter state code.');
+        return;
+      }
+
+      // SSN (9 digits)
+      if (!/^\d{9}$/.test(ssn)) {
+        alert('Please enter a valid 9-digit SSN (no dashes).');
+        return;
+      }
+
+      // Date of Birth (YYYY-MM-DD)
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(dob)) {
+        alert('Please enter a valid date of birth in the YYYY-MM-DD format.');
+        return;
+      }
+
       // Send a POST request to Flask backend
       console.log('Request Payload:', formData);
       const response = await axios.post(
@@ -66,26 +86,6 @@ const AlloyForm = () => {
       }
     } catch (error) {
       console.error('An error occurred:', error);
-    }
-
-    // Validation logic for each field
-
-    // State (2-letter code)
-    if (!/^[A-Z]{2}$/.test(state.trim())) {
-      alert('Please enter a valid 2-letter state code.');
-      return;
-    }
-
-    // SSN (9 digits)
-    if (!/^\d{9}$/.test(ssn)) {
-      alert('Please enter a valid 9-digit SSN (no dashes).');
-      return;
-    }
-
-    // Date of Birth (YYYY-MM-DD)
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(dob)) {
-      alert('Please enter a valid date of birth in the YYYY-MM-DD format.');
-      return;
     }
   };
 
@@ -120,6 +120,7 @@ const AlloyForm = () => {
             id="addressLine1"
             value={addressLine1}
             onChange={(e) => setAddressLine1(e.target.value)}
+            required
           />
         </div>
         <div className="form-group">
@@ -129,6 +130,7 @@ const AlloyForm = () => {
             id="addressLine2"
             value={addressLine2}
             onChange={(e) => setAddressLine2(e.target.value)}
+            required
           />
         </div>
         <div className="form-group">
@@ -138,6 +140,7 @@ const AlloyForm = () => {
             id="city"
             value={city}
             onChange={(e) => setCity(e.target.value)}
+            required
           />
         </div>
         <div className="form-group">
@@ -156,6 +159,7 @@ const AlloyForm = () => {
             id="zipCode"
             value={zipCode}
             onChange={(e) => setZipCode(e.target.value)}
+            required
           />
         </div>
         <div className="form-group">
